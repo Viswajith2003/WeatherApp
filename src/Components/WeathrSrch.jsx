@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCloud, faSun } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"; // Import Axios
 
-function Weathrsrch() {
+function WeathrSrch() {
   const [search, setSearch] = useState("london");
   const [data, setData] = useState({
     name: "",
@@ -124,3 +124,4 @@ function Weathrsrch() {
     </div>
   );
 }
+export default WeathrSrch;

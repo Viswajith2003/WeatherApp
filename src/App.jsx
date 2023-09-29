@@ -1,15 +1,13 @@
 import React from "react";
-import Weathrsrch from "./Components/Weathrsrch";
+import WeathrSrch from "./Components/WeathrSrch";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div>
-      <Weathrsrch />
+      <WeathrSrch />
     </div>
   );
 }
 
 export default App;
-
-
