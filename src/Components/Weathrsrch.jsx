@@ -124,5 +124,3 @@ function Weathrsrch() {
     </div>
   );
 }
-
-export default Weathrsrch;
