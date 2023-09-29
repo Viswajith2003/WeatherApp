@@ -27,23 +27,24 @@ function Weathrsrch() {
     fetchWeather();
   }, [search]);
 
-  // let temp = (data?.main.temp - 273.15).toFixed(2);
-  // let temp_min = (data?.main.temp_min - 273.15).toFixed(2);
-  // let temp_max = (data?.main.temp_max - 273.15).toFixed(2);
-
   // //Date
-  // let d = new Date();
-  // let date = d.getDate();
-  // let year = d.getFullYear();
-  // let month = d.toLocaleString("default", { month: "long" });
-  // let dat = d.toLocaleString("default", { weekday: "long" });
+  let d = new Date();
+  let date = d.getDate();
+  let year = d.getFullYear();
+  let month = d.toLocaleString("default", { month: "long" });
+  let dat = d.toLocaleString("default", { weekday: "long" });
 
   // //Time
-  // let time = d.toLocaleString([], {
-  //   hour: "2-digit",
-  //   minute: "2-digit",
-  //   second: "2-digit",
-  // });
+  let time = d.toLocaleString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch(input);
+  };
 
   return (
     <div className="">
@@ -57,7 +58,7 @@ function Weathrsrch() {
                 alt="cardimage"
               />
               <div className="card-img-overlay">
-                <form action="">
+                <form onSubmit={handleSubmit}>
                   <div className="input-group  w-75 h-12 mt-4 mx-auto">
                     <input
                       type="search"
@@ -65,6 +66,10 @@ function Weathrsrch() {
                       placeholder="Search City"
                       aria-label="Search City"
                       aria-describedby="basic-addon2"
+                      name="search"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      required
                     />
                     <button
                       type="submit"
@@ -81,7 +86,9 @@ function Weathrsrch() {
                     {data.name}
                   </h1>
                   <p className="card-text text-xl">
-                    Friday, September 22, 2023
+                    {dat}, {month} {date}, {year}
+                    <br />
+                    {time}
                   </p>
                   <br />
                   <hr />
@@ -119,8 +126,3 @@ function Weathrsrch() {
 }
 
 export default Weathrsrch;
-
-// {Math.round(data.main.temp - 273.15)} &deg;C
-// {data.weather[0].main}
-// {Math.round(data.main.temp_min - 273.15)}&deg;C |{" "}
-// {Math.round(data.main.temp_max - 273.15)}&deg;C
