@@ -1,36 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faCloud } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faCloud, faSun } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"; // Import Axios
 
 function Weathrsrch() {
   const [search, setSearch] = useState("london");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    weather: [{ main: "" }],
+  });
+
   const [input, setInput] = useState("");
-  let componentMounted= true;
 
+  const fetchWeather = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=a696b90198675218b8ad99fe342bf0b5`
+      );
+      setData(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=a696b90198675218b8ad99fe342bf0b5`
-        );
-
-        if (componentMounted) {
-          setData(res.data);
-          console.log(data);
-        }
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      }
-    };
-
     fetchWeather();
-
-    return () => {
-      componentMounted = false;
-    };
   }, [search]);
+
+  // let temp = (data?.main.temp - 273.15).toFixed(2);
+  // let temp_min = (data?.main.temp_min - 273.15).toFixed(2);
+  // let temp_max = (data?.main.temp_max - 273.15).toFixed(2);
+
+  // //Date
+  // let d = new Date();
+  // let date = d.getDate();
+  // let year = d.getFullYear();
+  // let month = d.toLocaleString("default", { month: "long" });
+  // let dat = d.toLocaleString("default", { weekday: "long" });
+
+  // //Time
+  // let time = d.toLocaleString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   second: "2-digit",
+  // });
 
   return (
     <div className="">
@@ -72,10 +85,29 @@ function Weathrsrch() {
                   </p>
                   <br />
                   <hr />
+
                   <FontAwesomeIcon icon={faCloud} className="text-8xl mt-3" />
-                  <h1 className="mb-5 text-5xl font-bold">33.06 &deg;C</h1>
-                  <p className="lead fw-border mb-0 font-bold">Cloud</p>
-                  <p className="lead mb-4">30.01&deg;C | 35.01&deg;C</p>
+
+                  {data.main && (
+                    <h1 className="mb-5 text-5xl font-bold">
+                      {Math.round(data.main.temp - 273.15)}&deg;C
+                    </h1>
+                  )}
+
+                  <p className="lead fw-border mb-0 font-bold">
+                    {data.weather && data.weather[0] && (
+                      <p className="lead fw-border mb-0 font-bold">
+                        {data.weather[0].main}
+                      </p>
+                    )}
+                  </p>
+
+                  {data.main && (
+                    <p className="lead mb-4">
+                      {Math.round(data.main.temp_max - 273.15)}&deg;C |
+                      {Math.round(data.main.temp_min - 273.15)}&deg;C
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -87,3 +119,8 @@ function Weathrsrch() {
 }
 
 export default Weathrsrch;
+
+// {Math.round(data.main.temp - 273.15)} &deg;C
+// {data.weather[0].main}
+// {Math.round(data.main.temp_min - 273.15)}&deg;C |{" "}
+// {Math.round(data.main.temp_max - 273.15)}&deg;C
