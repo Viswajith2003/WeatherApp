@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faCloud, faSun } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"; // Import Axios
+import {
+  FaSistrix,
+  FaCloud,
+  FaCloudBolt,
+  FaCloudRain,
+  FaCloudShowersHeavy,
+  FaSnowflake,
+  FaSmog,
+} from "react-icons/fa6";
 
 function WeathrSrch() {
   const [search, setSearch] = useState("london");
@@ -11,6 +19,8 @@ function WeathrSrch() {
   });
 
   const [input, setInput] = useState("");
+  // State to hold the emoji component
+  const [emojiComponent, setEmojiComponent] = useState(null);
 
   const fetchWeather = async () => {
     try {
@@ -26,6 +36,30 @@ function WeathrSrch() {
   useEffect(() => {
     fetchWeather();
   }, [search]);
+
+  useEffect(() => {
+    // Update the emoji when data changes
+    let emoji = null;
+    if (typeof data.main !== "undefined") {
+      if (data.weather[0].main === "Clouds") {
+        emoji = <FaCloud />;
+      } else if (data.weather[0].main === "Thunderstorm") {
+        emoji = <FaCloudBolt />;
+      } else if (data.weather[0].main === "Drizzle") {
+        emoji = <FaCloudRain />;
+      } else if (data.weather[0].main === "Rain") {
+        emoji = <FaCloudShowersHeavy />;
+      } else if (data.weather[0].main === "Snow") {
+        emoji = <FaSnowflake />;
+      } else {
+        emoji = <FaSmog />;
+      }
+    } else {
+      emoji = null;
+    }
+
+    setEmojiComponent(emoji);
+  }, [data]);
 
   // //Date
   let d = new Date();
@@ -53,7 +87,7 @@ function WeathrSrch() {
           <div className="col-md-4 mt-16 ">
             <div className="card bg-dark text-white text-center border-0 rounded">
               <img
-                src="https://source.unsplash.com/600x900/?nature,water"
+                src={`https://source.unsplash.com/600x900/?${data.weather[0].main}`}
                 className="cardImg rounded"
                 alt="cardimage"
               />
@@ -76,7 +110,9 @@ function WeathrSrch() {
                       className="search input-group-text bg-gray-400"
                       id="basic-addon2"
                     >
-                      <FontAwesomeIcon icon={faSearch} />
+                      <b>
+                        <FaSistrix className="text-3xl" />
+                      </b>
                     </button>
                   </div>
                 </form>
@@ -93,7 +129,14 @@ function WeathrSrch() {
                   <br />
                   <hr />
 
-                  <FontAwesomeIcon icon={faCloud} className="text-8xl mt-3" />
+                  {emojiComponent && (
+                    <div className={`text-9xl mt-3 ml-40`}>
+                      {emojiComponent}
+                    </div>
+                  )}
+                  {/* <b>
+                    <FaCloud className={`text-9xl mt-3 ml-40 ${emoji}`} />
+                  </b> */}
 
                   {data.main && (
                     <h1 className="mb-5 text-5xl font-bold">
