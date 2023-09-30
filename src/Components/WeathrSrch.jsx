@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../css/WeathrSrch.css";
+import VideoBg from "../assets/Sunset.mp4";
 import axios from "axios"; // Import Axios
 import {
   FaSistrix,
@@ -81,11 +83,14 @@ function WeathrSrch() {
   };
 
   return (
-    <div className="">
-      <div className="container mt-3 lg:mt-24">
+    <div className="main flex flex-col justify-center items-center h-screen">
+      <video className="absolute" autoPlay loop muted>
+        <source src={VideoBg} type="video/mp4" />
+      </video>
+      <div className="container mt-3 lg:mt-24 relative ">
         <div className="row justify-center items-center">
           <div className="col-md-4 mt-16 ">
-            <div className="card bg-dark text-white text-center border-0 rounded">
+            <div className="card bg-dark text-white text-center border-0 rounded z-40">
               <img
                 src={`https://source.unsplash.com/600x900/?${data.weather[0].main}`}
                 className="cardImg rounded"

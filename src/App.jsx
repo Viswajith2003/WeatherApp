@@ -1,6 +1,7 @@
 import React from "react";
-import WeathrSrch from "./Components/WeathrSrch";
+import WeathrSrch from "./Components/WeathrSrch.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
   return (
