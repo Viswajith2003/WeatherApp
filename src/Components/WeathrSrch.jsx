@@ -134,10 +134,6 @@ function WeathrSrch() {
                       {emojiComponent}
                     </div>
                   )}
-                  {/* <b>
-                    <FaCloud className={`text-9xl mt-3 ml-40 ${emoji}`} />
-                  </b> */}
-
                   {data.main && (
                     <h1 className="mb-5 text-5xl font-bold">
                       {Math.round(data.main.temp - 273.15)}&deg;C
