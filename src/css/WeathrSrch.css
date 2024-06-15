@@ -1,11 +1,67 @@
-/* Position the component on top of the video */
+/* WeathrSrch.css */
+.main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* WeathrSrch.css */
 .card {
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1; /* Ensure the card is above the video */
+  max-width: 600px; /* Adjust this value as needed */
+  width: 100%; /* Ensure the card expands to the full width of its container */
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+
+.cardImg {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card-img-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group input {
+  border-radius: 5px 0 0 5px;
+}
+
+.input-group button {
+  border-radius: 0 5px 5px 0;
+}
+
+/* Position the component on top of the video */
+/* .card {
   position: absolute;
 }
 body {
-    overflow: hidden;
-  }
-  
+  overflow: hidden;
+}
 
 .main {
   width: 100%;
@@ -26,4 +82,4 @@ video {
   width: 100%;
   height: 100vh;
   object-fit: cover;
-}
+} */
